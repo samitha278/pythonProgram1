@@ -10,11 +10,13 @@ def genarate_pascal(numRows):
         
     i = 1
     row = [1]
+    j=numRows-2
     while(i<numRows):
         if i == numRows-1:
             row.append(1)
         else:
-            row.append(pascal[i][i-1]+pascal[i][i])
+            temp = pascal[j][i-1]+pascal[j][i]
+            row.append(temp)
             
         i+=1
             
