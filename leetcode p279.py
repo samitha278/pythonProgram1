@@ -21,9 +21,10 @@ class Solution:
                         numPerSqr+=x
                         break
                     else:
-                        nSqrlist = [i**2 for i in range(1,int((x**0.5)+1))]
-                        nSqrlist.sort(reverse=True)
-                        x = x - nSqrlist[0]
+                        for k in SqrList:
+                            if k<x:
+                                x = x - k
+                                break
                         numPerSqr +=1
                         
             numSqrList.append(numPerSqr)
