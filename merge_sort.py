@@ -18,21 +18,10 @@ def mergeSort(unsort_list):
     if(length%2==1):
         right_half.append(unsort_list[-1])
     
-    #recursive case
-    if(len(left_half)==2):
-        if(left_half[0]<left_half[1]):
-            right_half = mergeSort(right_half)
-        else:
-            left_half = mergeSort(left_half)
-    elif(len(right_half)==2):
-        if(right_half[0]<right_half[1]):
-            left_half = mergeSort(left_half)
-        else:
-            right_half = mergeSort(right_half)
-    else:
-        #recursive case(main)
-        left_half = mergeSort(left_half)
-        right_half = mergeSort(right_half)
+    
+    #recursive case(main)
+    left_half = mergeSort(left_half)
+    right_half = mergeSort(right_half)
 
     #call merge function    
     sorted_list = merge(left_half,right_half)
