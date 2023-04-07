@@ -39,10 +39,10 @@ def merge(left_half,right_half):
     i = 0;j= 0; 
     
     while (i<len_lh and j<len_rh):
-        if(left_half[i]<right_half[j]):
+        if(left_half[i]<=right_half[j]):
             merge_list.append(left_half[i])
             i+=1
-        elif(right_half[j]<left_half[i]):
+        elif(right_half[j]<=left_half[i]):
             merge_list.append(right_half[j])
             j+=1
     if(i>=len_lh):
@@ -56,7 +56,7 @@ def merge(left_half,right_half):
 
 
 def main():
-    unsort_list = [1,10,4,2,9,3,8,7,5,6]
+    unsort_list = [567,1,10,11,-23,278,-9876,2,67,567,88,-3,9,15,-3,65,8,7,143,6843,5,-467,6]
     
     #call merge sort function
     sorted_list = mergeSort(unsort_list)
