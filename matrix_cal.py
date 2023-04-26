@@ -63,12 +63,19 @@ def print_matrix(matrix):
         print()
         
 def main():
-    print("Enter matrix A: ")
-    A = get_matrix(3,4)
-    print("Enter matrix B: ")
-    B = get_matrix(3,4)
+    #get matrix A
+    print("Enter matrix A #rows & #columns: ")
+    rowA = int(input("#rows: "))
+    columnA = int(input("#columns: "))
+    A = get_matrix(rowA,columnA)
     
-    B_T = transpose_matrix(B,3,4)
+    #get matrix B    
+    print("Enter matrix B #rows & #columns: ")
+    rowB = int(input("#rows: "))
+    columnB = int(input("#columns: "))
+    A = get_matrix(rowB,columnB)
+
+    B_T = transpose_matrix(B,rowB,columnB)
 
     print("matrix A * transpose matrix B")
     print_matrix(matrix_multiplier(A,B_T))
