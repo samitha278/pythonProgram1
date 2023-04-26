@@ -73,7 +73,7 @@ def main():
     print("Enter matrix B #rows & #columns: ")
     rowB = int(input("#rows: "))
     columnB = int(input("#columns: "))
-    A = get_matrix(rowB,columnB)
+    B = get_matrix(rowB,columnB)
 
     B_T = transpose_matrix(B,rowB,columnB)
 
