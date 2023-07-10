@@ -67,6 +67,7 @@ class Node:
 
 
     def evaluate(self):
+        pass
         
             
 
