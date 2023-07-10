@@ -5,39 +5,37 @@ class Node:
         self.right = None
         
 
-    def insert(self,data,bracked=False):
+    def insert(self,data,bracketed):
 
         operator = True if data[0]=="OPERATOR" else False   
         node = Node(data)
 
-        #operator & not bracked
-        if operator and bracked==False:
+        #operator
+        if operator: 
+            if bracketed:
+                temp = self.right
+                self.right = node
+                node.left = temp
+            else:
             
-            pres = {'^':4,'/':3,'*':3,'+':2,'-':2}
-            precedence = pres[data[1]]
-            
-            temp = self
-            
-            if temp.data[0]=="OPERATOR":
-                current_precedence = pres[temp.data[1]]
-
-                if precedence>current_precedence:
-                    temp = self.right
-                    self.right = node
-                    node.left = temp
+                pres = {'^':4,'/':3,'*':3,'+':2,'-':2}
+                precedence = pres[data[1]]
+                
+                temp = self
+                
+                if temp.data[0]=="OPERATOR":
+                    current_precedence = pres[temp.data[1]]
+    
+                    if precedence>current_precedence:
+                        temp = self.right
+                        self.right = node
+                        node.left = temp
+                    else:
+                        self = node
+                        node.left = temp
                 else:
                     self = node
                     node.left = temp
-            else:
-                self = node
-                node.left = temp
-
-        
-        #operator & bracked
-        elif operator and bracked==True:
-            temp = self.right
-            self.right = node
-            node.left = temp
 
 
         #operand
@@ -67,19 +65,53 @@ class Node:
 
 
     def evaluate(self):
-        pass
         
-            
-
+        operand = True if self.data[0]=="OPERAND" else False
         
-
-
-def tree_vis(self,level=0):
-    if self == None:return
+        if operand:
+            return self.data[1]
         
-    tree_vis(self.right,level+1)
-    print('        '*level + f"{self.data}")
-    tree_vis(self.left,level+1)
+        operator = self.data[1]
+        left = self.left
+        right = self.right
+        
+        match operator:
+            case '+':
+                value = right.evaluate()+left.evaluate()
+                print("+",value)
+                return value
+            case '-':
+                value = right.evaluate()-left.evaluate()
+                print("-",value)
+                return value
+            case '*':
+                value = right.evaluate()*left.evaluate()
+                print("*",value)
+                return value
+            case '/':
+                value = right.evaluate()/left.evaluate()
+                print("/",value)
+                return value
+            case '^':
+                value = left.evaluate()**right.evaluate()
+                print("^",value)
+                return value
+            case '_':
+                return
+
+
+
+    def tree_vis(self,level=0):
+        if self.left == None or self.right == None:
+            print('        '*level , f"{self.data}")
+            return 
+
+        left = self.left
+        right = self.right
+        
+        right.tree_vis(level+1)
+        print('        '*level , f"{self.data}")
+        left.tree_vis(level+1)
 
 
 
@@ -102,7 +134,9 @@ def test1():
     root = root.insert(("OPERATOR",'^'),False)
     root = root.insert(("OPERAND",2),False)
 
-    tree_vis(root)
+    result = root.evaluate()
+    print(result)
+    root.tree_vis()
 
 
 def test2():
@@ -117,7 +151,9 @@ def test2():
     root = root.insert(("OPERATOR",'^'),False)
     root = root.insert(("OPERAND",2),False)
 
-    tree_vis(root)
+    result = root.evaluate()
+    print(result)
+    root.tree_vis()
 
 def test3():
     root = Node(("OPERAND",-15))
@@ -127,16 +163,19 @@ def test3():
     root = root.insert(("OPERATOR",'*'),True)
     root = root.insert(("OPERAND",10),False)
 
-    tree_vis(root)
+    result = root.evaluate()
+    print(result)
+    root.tree_vis()
 
 
 
 if __name__=="__main__":        
     test1()
+'''
     print("\n\n\n\n")
     test2()
     print("\n\n\n\n")
     test3()
-
+'''
     
     
