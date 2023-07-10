@@ -8,13 +8,12 @@ class Node:
     def insert(self,data,bracked=False):
 
         operator = True if data[0]=="OPERATOR" else False   
-        
         node = Node(data)
 
         #operator & not bracked
         if operator and bracked==False:
             
-            pres = {'^':1,'/':2,'*':2,'+':3,'-':4}
+            pres = {'^':4,'/':3,'*':3,'+':2,'-':2}
             precedence = pres[data[1]]
             
             temp = self
@@ -67,12 +66,19 @@ class Node:
         return self
 
 
-    def tree_visualize(self,level=0):
-        if self == None:return
+    def evaluate(self):
         
-        tree_visualize(self.left,level+1)
-        print("    "*level+self.data)
-        tree.visualize(self.right,level+1)
+            
+
+        
+
+
+def tree_vis(self,level=0):
+    if self == None:return
+        
+    tree_vis(self.right,level+1)
+    print('        '*level + f"{self.data}")
+    tree_vis(self.left,level+1)
 
 
 
@@ -82,8 +88,8 @@ class Node:
 
 
 
-if __name__=="__main__":        
 
+def test1():
     root = Node(("OPERAND",1))
 
     root = root.insert(("OPERATOR",'+'),False)
@@ -95,4 +101,41 @@ if __name__=="__main__":
     root = root.insert(("OPERATOR",'^'),False)
     root = root.insert(("OPERAND",2),False)
 
-    root.tree_visualize()
+    tree_vis(root)
+
+
+def test2():
+    root = Node(("OPERAND",1))
+
+    root = root.insert(("OPERATOR",'+'),False)
+    root = root.insert(("OPERAND",2),False)
+    root = root.insert(("OPERATOR",'*'),True)
+    root = root.insert(("OPERAND",3),False)
+    root = root.insert(("OPERATOR",'+'),True)
+    root = root.insert(("OPERAND",3),False)
+    root = root.insert(("OPERATOR",'^'),False)
+    root = root.insert(("OPERAND",2),False)
+
+    tree_vis(root)
+
+def test3():
+    root = Node(("OPERAND",-15))
+
+    root = root.insert(("OPERATOR",'-'),False)
+    root = root.insert(("OPERAND",99),False)
+    root = root.insert(("OPERATOR",'*'),True)
+    root = root.insert(("OPERAND",10),False)
+
+    tree_vis(root)
+
+
+
+if __name__=="__main__":        
+    test1()
+    print("\n\n\n\n")
+    test2()
+    print("\n\n\n\n")
+    test3()
+
+    
+    
