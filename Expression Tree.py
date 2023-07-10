@@ -5,24 +5,18 @@ class Node:
         self.right = None
         
 
-
-class Tree:
-    def __init__(self,data):
-        self.data = data
-        self.root = Node(self.data)
-
-
     def insert(self,data,bracked=False):
 
-        operator = True if data[0]=="OPERATOR" else False
-        
-        pres = {'^':1,'/':2,'*':2,'+':3,'-':4}
-        precedence = pres[data[1]]
+        operator = True if data[0]=="OPERATOR" else False   
         
         node = Node(data)
 
         #operator & not bracked
         if operator and bracked==False:
+            
+            pres = {'^':1,'/':2,'*':2,'+':3,'-':4}
+            precedence = pres[data[1]]
+            
             temp = self
             
             if temp.data[0]=="OPERATOR":
@@ -50,19 +44,24 @@ class Tree:
         #operand
         elif not operator:
             temp = self
-
-            while True:
-                if temp.right.data[0]=="OPERATOR":
-                    temp = temp.right
-                elif temp.left.data[0]=="OPERATOR":
-                    temp = temp.left
-
-                if temp.left == None:
-                    temp.left = node
-                    break
-                elif temp.right == None:
-                    temp.right = node
-                    break
+            
+            if temp.right == None:
+                temp.right = node
+            elif temp.left == None:
+                temp.left = node
+            else:
+                while True:
+                    if temp.right.data[0]=="OPERATOR":
+                        temp = temp.right
+                    elif temp.left.data[0]=="OPERATOR":
+                        temp = temp.left
+    
+                    if temp.left == None:
+                        temp.left = node
+                        break
+                    elif temp.right == None:
+                        temp.right = node
+                        break
 
                 
         return self
@@ -78,10 +77,14 @@ class Tree:
 
 
 
-#driver code
+
+
+
+
+
 if __name__=="__main__":        
 
-    root = Tree(("OPERAND",1))
+    root = Node(("OPERAND",1))
 
     root = root.insert(("OPERATOR",'+'),False)
     root = root.insert(("OPERAND",2),False)
@@ -93,12 +96,3 @@ if __name__=="__main__":
     root = root.insert(("OPERAND",2),False)
 
     root.tree_visualize()
-
-
-
-
-
-
-
-
-
